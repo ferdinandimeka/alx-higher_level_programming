@@ -1,0 +1,1 @@
+bash: ./100-write.py: /usr/bin/python3^M: bad interpreter: No such file or directory

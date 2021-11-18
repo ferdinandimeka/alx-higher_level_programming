@@ -2,70 +2,44 @@
 #include <stdlib.h>
 
 /**
- * insert_node - malloc and insert node into sorted singly linked list
- * @head: pointer to head of linked list
- * @number: data for new node
- * Return: address of new node, or NULL if failed
+ * insert_node - inserts a number into a sorted singly linked list.
+ * @head: head of the linked list
+ * @number: input integer to insert
+ *
+ * Return: the address of the new node, or NULL if it failed.
  */
-
 listint_t *insert_node(listint_t **head, int number)
 {
-  listint_t *tmp = NULL;
-  listint_t *new = NULL;
+	listint_t *holder, *new;
 
-  if (!head)
-  return (NULL);
-
-  /* malloc new node */
-  new = (listint_t*)malloc(sizeof(listint_t));
-  if (new == NULL)
-  return (NULL);
-  new->n = number;
-  new->next = NULL;
-
-  /* if no linked list, insert node as the only member */
-  if (*head == NULL)
-  {
-   *head = new;
-   (*head)->next = NULL;
-   return (new);
-  }
-  /* if only one node in linked list, do comparision and insert */
-  if ((*head)->next == NULL)
-  {
-  if ((*head)->n < new->n)
-  (*head)->next = new;
-  else
-  {
-  new->next = *head;
-  *head = new;
-  }
-  return (new);
-  }
-
-  /* if lots of nodes in linked list, do comparision and insert */
-  tmp = *head;
-  while (tmp->next != NULL)
-  {
-      /* if new node num is smaller than first node, insert */
-  if (new->n < tmp->n)
-  {
-  new->next = tmp;
-  *head = new;
-  return (new);
-  }
-      /* if new node num is the same as an existing node, insert */
-      /* compare previous node and next node, insert in between */
-   if (((new->n > tmp->n) && (new->n < (tmp->next)->n)) ||
-  (new->n == tmp->n))
-  {
-  new->next = tmp->next;
-  tmp->next = new;
-  return (new);
-  }
-  tmp = tmp->next;
-  }
-  /* if new node is greatest and never inserted, insert now */
-  tmp->next = new;
-  return (new);
+	new = (listint_t*)malloc(sizeof(listint_t));
+	if (new == NULL)
+		return (NULL);
+	new->n = number;
+	new->next = NULL;
+	if (*head == NULL)
+	{
+		*head = new;
+		return (new);
+	}
+	holder = *head;
+	if (holder->n > number)
+	{
+		new->next = holder;
+		*head = new;
+		return (new);
+	}
+	else
+		while (holder->next != NULL)
+		{
+			if (holder->n <= number && holder->next->n >= number)
+			{
+				new->next = holder->next;
+				holder->next = new;
+				return (new);
+			}
+			holder = holder->next;
+		}
+	holder->next = new;
+	return (new);
 }

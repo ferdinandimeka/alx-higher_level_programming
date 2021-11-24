@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import sys
 
-
 def main():
     argc = len(sys.argv) - 1
     if argc == 0:

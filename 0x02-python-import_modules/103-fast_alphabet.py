@@ -1,3 +1,3 @@
-#!/usr/bin/env python3
-letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+#!/usr/bin/python3
+letters = (ABCDEFGHIJKLMNOPQRSTUVWXYZ)
 print(letters)

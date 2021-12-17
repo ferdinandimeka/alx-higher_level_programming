@@ -1,0 +1,110 @@
+====================
+
+import
+
+====================
+
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+====================
+	Case 1:
+    >>> print(add_integer(5,5))
+    11
+
+	Case 2:
+    >>> print(add_integer(5,5))
+    10
+
+	Case 3:
+    >>> print(add_integer(,5))
+    Traceback (most recent call last):
+      		...
+    SyntaxError: invalid syntax
+	
+	Case 4:
+	 >>> add_integer(2, -6)
+	 -4
+
+	Case 5:
+	 >>> add_integer(-8, 10)
+	 2
+
+	Case 6:
+	 >>> [add_integer(i, i ** 2) for i in range(6)]
+	 [0, 2, 6, 12, 20, 30]
+
+	Case 7:
+	 >>> add_integer(5, 3.3)
+	 3
+
+	Case 8:
+	 >>> add_integer(5.5, 9)
+	 14
+
+	Case 9:
+	 >>> add_integer(8.88, 5.3)
+	 13
+
+	Case 10:
+	 >>> add_integer(1, float('nan'))
+	 Traceback (most recent call last):
+	 ...
+	 ValueError: cannot convert float NaN to integer
+
+	Case 11:
+	 >>> add_integer(1, float('inf'))
+	 Traceback (most recent call last):
+	 ...
+	 OverflowError: cannot convert float infinity to integer
+
+	Case 12:
+	 >>> add_integer(9999999999999999999999999999999, 1)
+	 10000000000000000000000000000000
+
+	Case 13:
+	 >>> add_integer( 2, {3})
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: a must be an integer
+
+	Case 14:
+	 >>> add_integer(3, "2")
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: b must be an integer
+
+	Case 15:
+	 >>> add_integer((2,), {"key": "value"})
+         Traceback (most recent call last):
+         ...
+         TypeError: a must be an integer
+
+	Case 16:
+	 >>> add_integer(True, 1)
+	 Traceback (most recent call last):
+         ...
+         TypeError: a must be an integer
+
+	Case 17:
+	 >>> add_integer(0, False)
+         Traceback (most recent call last):
+         ...
+         TypeError: b must be an integer
+
+	Case 18:
+	 >>> add_integer()
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: add_integer() missing 2 required positional arguments: 'a' and 'b'
+
+	Case 19:
+	 >>> add_integer(1)
+	 Traceback (most recent call last):
+         ...
+	 TypeError: add_integer() missing 1 required positional argument: 'b'
+
+	Case 18:
+	 >>> add_integer(1, 2, 3)
+         Traceback (most recent call last):
+         ...
+         TypeError: add_integer() takes 2 positional arguments but 3 were given

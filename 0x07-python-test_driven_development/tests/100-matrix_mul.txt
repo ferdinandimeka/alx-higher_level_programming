@@ -1,0 +1,66 @@
+====================
+
+import
+
+====================
+
+Importing the function from the module:
+	>>> matrix_mul = __import__("100-matrix_mul").matrix_mul
+
+Case 1:
+	 >>> m = __import__("100-matrix_mul").__doc__
+	 >>> len(m) > 1
+	 True
+
+Case 2:
+	 >>> f = __import__("100-matrix_mul").matrix_mul.__doc__
+         >>> len(f) > 1
+         True
+
+Case 3:
+	 >>> matrix_mul()
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
+
+Case 4:
+	 >>> matrix_mul([[1, 2], [3, 4]])
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: matrix_mul() missing 1 required positional argument: 'm_b'
+
+Case 5:
+	 >>> matrix_mul([[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]])
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: matrix_mul() takes 2 positional arguments but 3 were given
+
+Case 6:
+	 >>> matrix_mul([[1, 2], [3, 4]], [[1.5, 2.5, 3.5], [4.5, 6.5, 7.5]])
+	 [[10.5, 15.5, 18.5], [22.5, 33.5, 40.5]]
+
+Case 7
+	 >>> matrix_mul(None, [[1, 2], [3, 4]])
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: m_a must be a list
+
+Case 8:
+	 >>> matrix_mul([[1, 2], [3, 4]], None)
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: m_b must be a list
+
+Case 9:
+	 >>> matrix_mul([], [[1, 2], [3, 4]])
+	 Traceback (most recent call last):
+	 ...
+	 ValueError: m_a can't be empty
+
+case 10:
+	 >>> matrix_mul([[], []], [[1, 2], [3, 4]])
+	 Traceback (most recent call last):
+	 ...
+	 ValueError: m_a can't be empty
+
+

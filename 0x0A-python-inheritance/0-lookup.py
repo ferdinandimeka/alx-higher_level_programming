@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-""" look up function """
+"""Contains the lookup function"""
 
 
 def lookup(obj):
-    """ look up the object attribute """
+    """Looks up the objects attributes"""
     return dir(obj)

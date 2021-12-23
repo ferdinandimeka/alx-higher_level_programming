@@ -20,3 +20,4 @@ def append_after(filename="", search_string="", new_string=""):
                 new_text += new_string
         f.seek(0)
         f.write(new_text)
+        print()

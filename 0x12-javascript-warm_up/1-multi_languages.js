@@ -1,10 +1,6 @@
 #!/usr/bin/node
 
 //a script that prints 3 lines
-const firstLine = 'C is fun';
-const secondLine = 'Python is cool';
-const thirdLine = 'Javascript is amazing';
-
-console.log(firstLine);
-console.log(secondLine);
-console.log(thirdLine);
+console.log('C is fun');
+console.log('Python is cool');
+console.log('Python is cool');

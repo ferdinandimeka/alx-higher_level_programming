@@ -7,4 +7,4 @@ const thirdLine = 'Javascript is amazing';
 
 console.log(firstLine);
 console.log(secondLine);
-consol.log(thirdLine);
+console.log(thirdLine);

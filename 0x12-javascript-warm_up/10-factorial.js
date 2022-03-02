@@ -1,9 +1,13 @@
 #!/usr/bin/node
-const second = parseInt(process.argv[2]);
-function factorial (integer) {
-  if (integer === 0 || isNaN(integer)) {
+
+function factorial (a) {
+  if (a > 0) {
+    return a * factorial(a - 1);
+  } else {
     return 1;
   }
-  return integer * factorial(integer - 1);
 }
-console.log(factorial(second));
+
+const a = parseInt(process.argv[2]);
+const result = factorial(a);
+console.log(result);

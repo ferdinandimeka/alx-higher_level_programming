@@ -1,10 +1,13 @@
 #!/usr/bin/node
-let index = 'No current occurence';
-const second = process.argv[2];
-if (isNaN(parseInt(second))) {
-  console.log('Missing number of occurrences');
-} else {
-  for (index = 0; index < parseInt(second); index++) {
+
+const x = process.argv[2];
+let i = 0;
+if (i < x && x >= 0) {
+  while (i < x) {
     console.log('C is fun');
+    i++;
   }
+} else if (x < 0) {
+} else {
+  console.log('Missing number of occurrences');
 }

@@ -1,9 +1,9 @@
 #!/usr/bin/node
-const Numbers = process.argv.length;
-const BigNumTest = process.argv.slice(2);
-if (Numbers < 4) {
+
+const len = process.argv.length;
+if (len < 4) {
   console.log(0);
 } else {
-  const CheckTest = BigNumTest.sort((a, b) => b - a);
-  console.log(CheckTest[1]);
+  const numArray = process.argv.sort((a, b) => a - b);
+  console.log(numArray[numArray.length - 2]);
 }

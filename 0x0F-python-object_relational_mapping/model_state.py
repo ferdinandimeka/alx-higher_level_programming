@@ -1,18 +1,22 @@
 #!/usr/bin/python3
+""" First state model
+    file that contains the class definition of a State
+    and an instance Base = declarative_base()
 """
-Contains State class and Base, an instance of declarative_base()
-"""
-from sqlalchemy import Column, Integer, String, MetaData
+
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
-mymetadata = MetaData()
-Base = declarative_base(metadata=mymetadata)
+Base = declarative_base()
 
 
 class State(Base):
-    """
-    Class with id and name attributes of each state
+    """Class State that inherits from Base
+
+    Args:
+        Base ([class]): class base
     """
     __tablename__ = 'states'
-    id = Column(Integer, unique=True, nullable=False, primary_key=True)
+    id = Column(Integer, unique=True, autoincrement=True,
+                nullable=False, primary_key=True)
     name = Column(String(128), nullable=False)

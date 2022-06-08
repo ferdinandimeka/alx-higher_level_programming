@@ -9,6 +9,6 @@ if __name__ == "__main__":
     if argv_len != 1:
         for i in range(1, argv_len):
             sum += int(argv[i])
-        print("{:d}".format(sum))
+        print("{:d}".format(sum, end=' '))
     else:
         print("{:d}".format(0))

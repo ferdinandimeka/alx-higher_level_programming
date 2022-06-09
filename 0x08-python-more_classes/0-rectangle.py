@@ -1,8 +1,8 @@
-#!/usr/bin/python
-""" An empty class"""
+#!/usr/bin/python3
+
+"""empty class for rectangle"""
+
 
 class Rectangle:
-    pass  # An empty block
-
-p = Rectangle()
-print(p)
+    """had to put a comment here"""
+    pass

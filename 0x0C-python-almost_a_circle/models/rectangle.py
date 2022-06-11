@@ -110,4 +110,3 @@ class Rectangle(Base):
                     'height': self.__height,
                     'x': self.__x,
                     'y': self.__y}
-

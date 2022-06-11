@@ -1,52 +1,45 @@
 #!/usr/bin/python3
-
-""" module base """
-from models.base import Base
+"""
+module
+"""
 from models.rectangle import Rectangle
 
+
 class Square(Rectangle):
-    """ square class """
-    
+    """ class Square"""
+
     def __init__(self, size, x=0, y=0, id=None):
-        """ class constructor of square """
-        self.size = size
+        """ check inputs """
         super().__init__(size, size, x, y, id)
-        
+
     @property
     def size(self):
-        """ getter of size """
-        return self.width
-    
+        """ check inputs """
+        return super().width
+
     @size.setter
     def size(self, value):
-        """ setter of size """
-        if not isinstance(value, int):
-            raise TypeError("width must be an integer")
-        if value <= 0:
-            raise ValueError("width must be > 0")
-        self.width = value
-        
-    def __str__(self):
-        """ return a string """
-        s1 = "[Square] ({}) {}/{} -".format(self.id, self.x, self.y)
-        s2 = " {}".format(self.width)
-        return s1 + s2
-    
+        """ check inputs """
+        Rectangle.width.fset(self, value)
+        Rectangle.height.fset(self, value)
+
     def update(self, *args, **kwargs):
-        """ update the private attributes """
-        vars = ["id", "size", "x", "y"]
-        if args:
-            for i in range(len(args)):
-                setattr(self, vars[i], args[i])
-            else:
-                for i in kwargs.key():
-                    if i in dir(self):
-                        setattr(self, i, kwargs.get(i))
-                        
+        """ check inputs """
+        if kwargs and (args is None or len(args) == 0):
+            if 'size' in kwargs.keys():
+                aux = {'width': kwargs['size'], 'height': kwargs['size']}
+                kwargs.update(aux)
+            super().update(*args, **kwargs)
+        else:
+            args_list = list(args)
+            if len(args) > 1:
+                args_list.insert(1, args[1])
+            super().update(*args_list, **kwargs)
+
     def to_dictionary(self):
-        """ returns the dictionary representation of a square """
-        vars = ["id", "size", "x", "y"]
-        dictionary = {}
-        for i in range(len(vars)):
-            dictionary.update({vars[i]: (getattr(self, vars[i]))})
-        return dictionary
+        """ check inputs """
+        new_dict = {'id': self.id,
+                    'size': self.height,
+                    'x': self.x,
+                    'y': self.y}
+        return new_dict

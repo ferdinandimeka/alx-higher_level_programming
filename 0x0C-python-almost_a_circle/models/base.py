@@ -1,16 +1,19 @@
 #!/usr/bin/python3
-'''module base '''
+"""
+Module base
+"""
 import json
-import os
+import csv
+import turtle
+import random
 
 
-class Base():
-    '''class Base '''
-
+class Base:
+    """class"""
     __nb_objects = 0
 
     def __init__(self, id=None):
-        '''method init'''
+        """ check inputs """
         if id is not None:
             self.id = id
         else:
@@ -19,77 +22,112 @@ class Base():
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        '''static method that returns the JSON string representation of
-        list_dictionaries'''
-        if list_dictionaries is None or list_dictionaries == []:
-            return '[]'
-        else:
-            return json.dumps(list_dictionaries)
+        """ check inputs """
+        if list_dictionaries is None or len(list_dictionaries) == 0:
+            return "[]"
+        return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
-        ''' writes the JSON string representation of list_objs to a file '''
-        filename = str('{}.json'.format(cls.__name__))
-        list_of_dicts = []
-        string = '[]'
-        if list_objs:
-            for obj in list_objs:
-                list_of_dicts.append(cls.to_dictionary(obj))
-            string = cls.to_json_string(list_of_dicts)
-        with open(filename, 'w', encoding='utf-8') as file:
-            file.write(string)
+        """ check inputs """
+        with open(cls.__name__ + ".json", mode="w") as j_file:
+            if list_objs is not None:
+                list_dict = [item.to_dictionary() for item in list_objs]
+                j_file.write(cls.to_json_string(list_dict))
+            else:
+                j_file.write(cls.to_json_string([]))
 
     @staticmethod
     def from_json_string(json_string):
-        ''' returns the list of the JSON string representation json_string '''
-        if json_string is None or len(json_string) < 0:
+        """ check inputs """
+        if json_string is None:
             return []
-        result = json.loads(json_string)
-        return result
+        return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
-        '''returns an instance with all attributes already set'''
-        if dictionary is None:
-            return None
-        default = cls(1, 1)
-        default.update(**dictionary)
-        return default
+        """ check inputs """
+        if cls.__name__ == "Rectangle":
+            dummy = cls(1, 1)
+        else:
+            dummy = cls(1)
+        dummy.update(**dictionary)
+        return dummy
 
     @classmethod
     def load_from_file(cls):
-        ''' returns a list of instances '''
-        filename = str('{}.json'.format(cls.__name__))
-        exist = os.path.isfile(filename)
-        if exist is False:
+        """ check inputs """
+        try:
+            with open(cls.__name__ + ".json", encoding="utf-8") as j_file:
+                list_file = cls.from_json_string(j_file.read())
+                return [cls.create(**obj) for obj in list_file]
+
+        except:
             return []
-        else:
-            with open(filename, encoding='utf-8') as file:
-                filecontent = file.read()
-            list_of_dicts = cls.from_json_string(filecontent)
-            list_instances = []
-            for dictionary in list_of_dicts:
-                object = cls.create(**dictionary)
-                list_instances.append(object)
-            return list_instances
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        ''' serializes in CSV '''
-        filename = str('{}.csv'.format(cls.__name__))
-        list_of_dicts = []
-        if list_objs:
-            for obj in list_objs:
-                list_of_dicts.append(cls.to_dictionary(obj))
-        pass
+        """ check inputs """
+        with open(cls.__name__ + ".csv", mode="w") as f_csv:
+            if list_objs is not None:
+                values = ['id', 'width', 'height', 'size', 'x', 'y']
+                list_dict = [item.to_dictionary() for item in list_objs]
+                values_header = filter(lambda y: y in list_dict[0], values)
+                writer = csv.DictWriter(f_csv, fieldnames=list(values_header))
+                writer.writeheader()
+                for line in list_dict:
+                    writer.writerow(line)
 
     @classmethod
     def load_from_file_csv(cls):
-        ''' deserializes in CSV '''
-        filename = str('{}.json'.format(cls.__name__))
-        pass
+        """ check inputs """
+        try:
+            with open(cls.__name__ + ".csv") as j_file:
+                reader = csv.DictReader(j_file)
+                list_dicts = []
+                for row in reader:
+                    for keys in row:
+                        row[keys] = int(row[keys])
+                    list_dicts.append(row)
+                list_objs = [cls.create(**obj) for obj in list_dicts]
+                return list_objs
+
+        except IOError:
+            return []
 
     @staticmethod
     def draw(list_rectangles, list_squares):
-        ''' opens a window and draws all the Rectangles and Squares '''
-        pass
+        """ check inputs """
+        win = turtle.Screen()
+        win.bgcolor("lightgreen")
+        cursor = turtle.Turtle()
+        win.colormode(255)
+        cursor.pensize(3)
+
+        for shape in list_rectangles:
+            colors = (random.randint(1, 255), random.randint(1, 255),
+                      random.randint(1, 255))
+            cursor.pencolor(colors)
+            cursor.up()
+            cursor.setx(shape.x)
+            cursor.sety(shape.y)
+            cursor.down()
+            for i in range(2):
+                cursor.forward(shape.width)
+                cursor.right(90)
+                cursor.forward(shape.height)
+                cursor.right(90)
+
+        for shape in list_squares:
+            colors = (random.randint(1, 255), random.randint(1, 255),
+                      random.randint(1, 255))
+            cursor.pencolor(colors)
+            cursor.up()
+            cursor.setx(shape.x)
+            cursor.sety(shape.y)
+            cursor.down()
+            for i in range(4):
+                cursor.forward(shape.size)
+                cursor.right(90)
+
+        win.exitonclick()

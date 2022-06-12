@@ -8,4 +8,4 @@ request(url, function (err, response) {
   } else {
     console.log('code: ' + response.statusCode);
   }
-})
+});

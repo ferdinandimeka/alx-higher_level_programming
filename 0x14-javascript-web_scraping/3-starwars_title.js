@@ -9,4 +9,4 @@ request.get(url + id, function (err, response, body) {
   } else {
     console.log(JSON.parse(body).title);
   }
-})
+});

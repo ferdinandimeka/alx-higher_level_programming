@@ -1,19 +1,23 @@
-#!/usr/bin/env python3
-""" Filter states
-    script that lists all states with a name starting
-    with N (upper N) from the database hbtn_0e_0_usa
+#!/usr/bin/python3
 """
-import MySQLdb
-from sys import argv
+lists all states with a name starting with N (upper N)
+from the database hbtn_0e_0_usa
+"""
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(
-        host="localhost", user=argv[1], passwd=argv[2], db=argv[3])
-    cur = db.cursor()
-    cur.execute("SELECT * FROM states")
-    rows = cur.fetchall()
-    for row in rows:
-        if row[1][0] == "N":
+import sys
+import MySQLdb
+
+if __name__ == '__main__':
+    args = sys.argv
+    conn = MySQLdb.connect(host="localhost", port=3306, user=args[1],
+                           passwd=args[2], db=args[3], charset="utf8")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    query_rows = cursor.fetchall()
+
+    for row in query_rows:
+        if row[1][0] == 'N':
             print(row)
-    cur.close()
-    db.close()
+
+    cursor.close()
+    conn.close()

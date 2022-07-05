@@ -15,4 +15,4 @@ class MyInt(int):
 
         def __ne__(self, other):
             """ Inverted to equal """
-            return int.__eq__(self, other)"""
+            return int.__eq__(self, other)

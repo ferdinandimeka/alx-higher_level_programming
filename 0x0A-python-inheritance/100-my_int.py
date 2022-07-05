@@ -11,8 +11,8 @@ class MyInt(int):
 
         def __eq__(self, other):
             """ Inverted to not equal """
-            return super().__ne__(other)
+            return int.__ne__(self, other)
 
         def __ne__(self, other):
             """ Inverted to equal """
-            return super().__eq__(other)"""
+            return int.__eq__(self, other)"""

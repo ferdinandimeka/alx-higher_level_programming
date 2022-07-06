@@ -14,5 +14,6 @@ try:
     content = load_from_json_file(filename)
 except:
     content = []
+pass
 
 save_from_json(content + argv[1:], filename)

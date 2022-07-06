@@ -1,59 +1,52 @@
 #!/usr/bin/python3
-# unit test for rectangle.py script
+"""Unittest cases for Base class"""
 
-import unittest  # allows to assert
-import os  # allows to run bash commands
-
-# scripts to test:
-from models.base import Base
+import unittest
 from models.rectangle import Rectangle
-from models.square import Square
 
 
-class Test_Rectangle(unittest.TestCase):
-    # class to test the unit models.rectangle.py
+class RectangleTest(unittest.TestCase):
 
-    def test_Rectangle(self):
-        # test for class Rectangle, task 0
+    def setUp(self):
+        self.rc = Rectangle(1, 2, 5, 4)
 
-        # Correct input same parameters
-        a = Rectangle(100, 100, 100, 100, 100)
-        self.assertEqual(a.width, 100)
-        self.assertEqual(a.height, 100)
-        self.assertEqual(a.x, 100)
-        self.assertEqual(a.y, 100)
-        self.assertEqual(a.id, 100)
-        Base.id = 0
+    def test_width(self):
+        """Test width"""
 
-        # Rectangle is instance of Base
-        self.assertTrue(type(a), Base)
-        self.assertIsInstance(a, Base)
+        self.assertEqual(self.rc.width, 1)
 
-        # Correct input with only mandatory parameters
-        c = Rectangle(2, 3)
-        self.assertEqual(c.id, 1)
-        self.assertEqual(c.width, 2)
-        self.assertEqual(c.height, 3)
-        self.assertEqual(c.x, 0)
-        self.assertEqual(c.y, 0)
-        Base.id = 0
+    def test_heihg(self):
+        """Test heigh"""
 
-        # Correct input full parameters
-        b = Rectangle(100, 200, 300, 400, 500)
-        self.assertEqual(b.width, 100)
-        self.assertEqual(b.height, 200)
-        self.assertEqual(b.x, 300)
-        self.assertEqual(b.y, 400)
-        self.assertEqual(b.id, 500)
+        self.assertEqual(self.rc.height, 2)
 
-        # Raise error if incorrect Type Value
-        # self.assertRaises(TypeError, Rectangle('string', 3, 4, 5))
+    def test_x(self):
+        """test x """
 
-    def doc_of_rect(self):
-        # documentation of rectangle functions
+        self.assertEqual(self.rc.x, 5)
 
-        pass
+    def test_y(self):
+        """test y """
 
+        self.assertEqual(self.rc.y, 4)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_widthngative(self):
+        """test negative width"""
+
+        with self.assertRaises(ValueError):
+            ob = Rectangle(-1, 2)
+
+    def test_NegativeHeigh(self):
+        """Test negative heigh"""
+
+        self.assertRaises(ValueError, Rectangle, 2, -1)
+
+    def test_heightSetter(self):
+        """Height is not a integer"""
+
+        self.assertRaises(TypeError, Rectangle, 1, "Hello")
+
+    def test_widthSetter(self):
+        """width is not a integer"""
+
+        self.assertRaises(TypeError, Rectangle, "Hello", 1)

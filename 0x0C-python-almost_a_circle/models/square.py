@@ -1,45 +1,55 @@
 #!/usr/bin/python3
-"""
-module
-"""
+"""module for square"""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """ class Square"""
+    """Square class"""
 
     def __init__(self, size, x=0, y=0, id=None):
-        """ check inputs """
+        """Constructor, initialize a Square"""
+
         super().__init__(size, size, x, y, id)
+
+    def __str__(self):
+        """String representation of class"""
+
+        return "[Square] ({}) {}/{} - {}".format(
+            self.id, self.x, self.y, self.width)
 
     @property
     def size(self):
-        """ check inputs """
-        return super().width
+        """Getter for size"""
+
+        return self.width
 
     @size.setter
     def size(self, value):
-        """ check inputs """
-        Rectangle.width.fset(self, value)
-        Rectangle.height.fset(self, value)
+        """Setter for size"""
+
+        self.width = value
+        self.height = value
 
     def update(self, *args, **kwargs):
-        """ check inputs """
-        if kwargs and (args is None or len(args) == 0):
-            if 'size' in kwargs.keys():
-                aux = {'width': kwargs['size'], 'height': kwargs['size']}
-                kwargs.update(aux)
-            super().update(*args, **kwargs)
+        """Update method for Square"""
+
+        if args:
+            for i, element in enumerate(args):
+                if i == 0:
+                    self.id = element
+                elif i == 1:
+                    self.size = element
+                elif i == 2:
+                    self.x = element
+                elif i == 3:
+                    self.y = element
         else:
-            args_list = list(args)
-            if len(args) > 1:
-                args_list.insert(1, args[1])
-            super().update(*args_list, **kwargs)
+            for key, value in kwargs.items():
+                if hasattr(self, key) is True:
+                    setattr(self, key, value)
 
     def to_dictionary(self):
-        """ check inputs """
-        new_dict = {'id': self.id,
-                    'size': self.height,
-                    'x': self.x,
-                    'y': self.y}
-        return new_dict
+        """returns the dictionary representation of a Square"""
+
+        my_dict2 = {'id': self.id, 'size': self.size, 'x': self.x, 'y': self.y}
+        return my_dict2

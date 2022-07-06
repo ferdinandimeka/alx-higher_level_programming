@@ -1,73 +1,37 @@
 #!/usr/bin/python3
-# unit test for square.py script
+"""Unittest cases for Square class"""
 
-import unittest  # allows to assert
-import os  # allows to run bash commands
-
-# scripts to test:
-from models.base import Base
-from models.rectangle import Rectangle
+import unittest
 from models.square import Square
 
 
-class Test_Square(unittest.TestCase):
-    # class to test the unit models.rectangle.py
+class SquareTest(unittest.TestCase):
 
-    word = 'Betty'
-    string = 'Betty Holberton'
-    positive = 5
-    negatve = 0 - 5
-    zero = 0
-    nothing = None
-    dictionary = {'Key0': 0, 'Key1': 1, 'Key2': 2, 'Key3': 3, 'Key4': 4}
-    list = [1, 2, 3, 4, 5]
-    boolean = True
+    def setUp(self):
+        self.sq = Square(1, 5, 4)
 
-    def test_Square(self):
-        # test for class Square
+    def test_size(self):
+        """Test size"""
 
-        # Correct input same parameters
-        a = Square(100, 100, 100, 100)
-        self.assertEqual(a.width, 100)
-        self.assertEqual(a.height, 100)
-        self.assertEqual(a.size, 100)
-        self.assertEqual(a.x, 100)
-        self.assertEqual(a.y, 100)
-        self.assertEqual(a.id, 100)
+        self.assertEqual(self.sq.size, 1)
 
-        # Rectangle is instance of Base
-        self.assertTrue(type(a), Base)
-        self.assertIsInstance(a, Base)
-        self.assertTrue(type(a), Rectangle)
-        self.assertIsInstance(a, Rectangle)
+    def test_x(self):
+        """test x """
 
-        # Correct input with only mandatory parameters
-        c = Square(2)
-        self.assertEqual(c.id, 1)
-        self.assertEqual(c.width, 2)
-        self.assertEqual(c.height, 2)
-        self.assertTrue(c.size, 2)
-        self.assertEqual(c.x, 0)
-        self.assertEqual(c.y, 0)
-        Base.id = 0
+        self.assertEqual(self.sq.x, 5)
 
-        # Correct input full parameters
-        b = Square(100, 200, 300, 400)
-        self.assertEqual(b.size, 100)
-        self.assertEqual(b.width, 100)
-        self.assertEqual(b.height, 100)
-        self.assertEqual(b.x, 200)
-        self.assertEqual(b.y, 300)
-        self.assertEqual(b.id, 400)
+    def test_y(self):
+        """test y """
 
-        # Raise error if incorrect Type Value
-        # d = Square(string, 3, 4, 5)
-        # self.assertRaises(TypeError, d)
+        self.assertEqual(self.sq.y, 4)
 
-    def doc_of_square(self):
-        # documentation of square functions
-        pass
+    def test_negative(self):
+        """test negative size"""
 
+        with self.assertRaises(ValueError):
+            ob = Square(-1)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_sizeSetter(self):
+        """Size is not a integer"""
+
+        self.assertRaises(TypeError, Square, "Hello")
